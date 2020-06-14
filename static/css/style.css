@@ -1,0 +1,29 @@
+#thevideo {
+	width: 150px;
+}
+
+
+	@media (min-width: 576px) {
+		#thevideo {
+			width: 150px;
+			}
+}
+
+	@media (min-width: 768px) {
+		#thevideo {
+			width: 175px;
+			}
+}
+
+	@media (min-width: 992px) {
+		#thevideo {
+			width: 200px;
+			}
+}
+
+	@media (min-width: 1200px) {
+		#thevideo {
+			width: 200px;
+			}
+}
+
