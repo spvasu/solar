@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,10 @@
     <title>SolarPV</title>
 
     <!-- Bootstrap -->
-    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
 	  
 	<!-- load custom styling -->
-	<link href="../static/css/style.css" rel="stylesheet">
+	<!-- <link href="../static/css/style.css" rel="stylesheet"> -->
 	 
 	<!--jquery https://jqueryvalidation.org/min-method/-->
 	<script src="../static/js/jquery-3.4.1.min.js"></script>
@@ -20,19 +21,7 @@
    
 	 <!-- drag and drop script https://www.w3schools.com/html/html5_draganddrop.asp --> 
 	  <script>
-		function allowDrop(ev) {
-			  ev.preventDefault();
-			}
 
-			function drag(ev) {
-			  ev.dataTransfer.setData("text", ev.target.id);
-			}
-
-			function drop(ev) {
-			  ev.preventDefault();
-			  var data = ev.dataTransfer.getData("text");
-			  ev.target.appendChild(document.getElementById(data));
-			}
 	  </script>
   </head>
   <body>
@@ -44,7 +33,7 @@
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-                <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
              </li>
              <li class="nav-item">
                 <a class="nav-link" href="about">About Us</a>
@@ -79,6 +68,8 @@
          </form>
       </div>
     </nav>
+
+
 	<div class="head-banner" id="headbanner">
     <div class="jumbotron jumbotron-fluid text-center">
 		<!-- https://getbootstrap.com/docs/4.0/components/carousel/ -->
@@ -109,7 +100,7 @@
 					</div>
 				</div>
 			  </div>
-	</div>
+	        </div>
 
        <p class="lead">Research &amp; Development</p>
        <hr class="my-4">
@@ -211,29 +202,42 @@
 	  
   </body>
 	<script>
-		
-	function searchClick() {
-		if (($("#search-text").val().length) == 0) { 
-			alert("Length should be longer")
-		}
-		else {
-			console.log("search was positive length")
-		}
-	}
-		//https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
-		//code for getting location is from above link and is not our own code
-		$("#find_btn").click(function () { //user clicks button
-			if ("geolocation" in navigator){ //check geolocation available 
-			//try to get user current location using getCurrentPosition() method
-				navigator.geolocation.getCurrentPosition(function(position){ 
-					$("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
-					$("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
-																			});
+		function allowDrop(ev) {
+			  ev.preventDefault();
 			}
-			else{
-				console.log("Browser doesn't support geolocation!");
-				}
-											});
+
+			function drag(ev) {
+			  ev.dataTransfer.setData("text", ev.target.id);
+			}
+
+			function drop(ev) {
+			  ev.preventDefault();
+			  var data = ev.dataTransfer.getData("text");
+			  ev.target.appendChild(document.getElementById(data));
+			}
+
+        function searchClick() {
+            if (($("#search-text").val().length) == 0) {
+                alert("Length should be longer")
+            }
+            else {
+                console.log("search was positive length")
+            }
+        }
+            //https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
+            //code for getting location is from above link and is not our own code
+            $("#find_btn").click(function () { //user clicks button
+                if ("geolocation" in navigator){ //check geolocation available
+                //try to get user current location using getCurrentPosition() method
+                    navigator.geolocation.getCurrentPosition(function(position){
+                        $("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
+                        $("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
+                                                                                });
+                }
+                else{
+                    console.log("Browser doesn't support geolocation!");
+                    }
+                                                });
 	 </script>
 	
 </html>

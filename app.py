@@ -27,11 +27,17 @@ def main():
 def about():
     return render_template("about.html")
 
+
+#contact page logic
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
 #registration page logic
 @app.route("/registration")
-def about():
+def registration():
     return render_template("registration.html")
-
 
 #login page logic
 @app.route('/login', methods=['GET', 'POST'])
