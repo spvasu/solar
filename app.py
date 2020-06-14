@@ -22,16 +22,18 @@ def main():
     return render_template("home.html")
 
 
-
-
-
 #about page logic
 @app.route("/about")
 def about():
     return render_template("about.html")
 
+#registration page logic
+@app.route("/registration")
+def about():
+    return render_template("registration.html")
 
-# http://localhost:5000/pythonlogin/ - this will be the login page, we need to use both GET and POST requests
+
+#login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
