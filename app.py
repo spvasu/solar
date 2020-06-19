@@ -48,9 +48,9 @@ def contact():
         print('Msg: %s', msg, file=sys.stderr)
 
         sendEmail(name, email, phone, msg)
-        print('Email was sen!t', file=sys.stderr)
+        print('Email was sent!', file=sys.stderr)
 
-        return redirect('contactCompleted.html')
+        return render_template('contactCompleted.html')
 
 
 
