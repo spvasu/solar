@@ -1,28 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
   <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SolarPV</title>
 
-    <!-- Bootstrap -->
-    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
+
 	  
 	<!-- load custom styling -->
 	<!-- <link href="../static/css/style.css" rel="stylesheet"> -->
-	 
-	<!--jquery https://jqueryvalidation.org/min-method/-->
-	<script src="../static/js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="../static/js/jquery.jcarousel.min.js"></script>
-	<script src="../static/js/jquery.validate.min.js"></script>
-	<script src="../static/js/additional-methods.min.js"></script>
-   
-	 <!-- drag and drop script https://www.w3schools.com/html/html5_draganddrop.asp --> 
-	  <script>
 
-	  </script>
+	<!--jquery https://jqueryvalidation.org/min-method/-->
+	<script href="../static/js/jquery-3.4.1.min.js"></script>
+	<script href="../static/js/jquery.jcarousel.min.js"></script>
+	<script href="../static/js/jquery.validate.min.js"></script>
+	<script href="../static/js/additional-methods.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/popper.min.js"></script>
+    <script src="../static/js/bootstrap-4.4.1.js"></script>
+	 <!-- drag and drop script https://www.w3schools.com/html/html5_draganddrop.asp -->
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+
+      	<script>
+		function allowDrop(ev) {
+			  ev.preventDefault();
+			}
+
+			function drag(ev) {
+			  ev.dataTransfer.setData("text", ev.target.id);
+			}
+
+			function drop(ev) {
+			  ev.preventDefault();
+			  var data = ev.dataTransfer.getData("text");
+			  ev.target.appendChild(document.getElementById(data));
+			}
+
+        function searchClick() {
+            if (($("#search-text").val().length) == 0) {
+                alert("Length should be longer")
+            }
+            else {
+                console.log("search was positive length")
+            }
+        }
+            //https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
+            //code for getting location is from above link and is not our own code
+            $("#find_btn").click(function () { //user clicks button
+                if ("geolocation" in navigator){ //check geolocation available
+                //try to get user current location using getCurrentPosition() method
+                    navigator.geolocation.getCurrentPosition(function(position){
+                        $("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
+                        $("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
+                                                                                });
+                }
+                else{
+                    console.log("Browser doesn't support geolocation!");
+                    }
+                                                });
+	 </script>
+
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -193,51 +235,11 @@
           </div>
        </div>
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-    <script src="js/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed --> 
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
-	  
   </body>
-	<script>
-		function allowDrop(ev) {
-			  ev.preventDefault();
-			}
 
-			function drag(ev) {
-			  ev.dataTransfer.setData("text", ev.target.id);
-			}
-
-			function drop(ev) {
-			  ev.preventDefault();
-			  var data = ev.dataTransfer.getData("text");
-			  ev.target.appendChild(document.getElementById(data));
-			}
-
-        function searchClick() {
-            if (($("#search-text").val().length) == 0) {
-                alert("Length should be longer")
-            }
-            else {
-                console.log("search was positive length")
-            }
-        }
-            //https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
-            //code for getting location is from above link and is not our own code
-            $("#find_btn").click(function () { //user clicks button
-                if ("geolocation" in navigator){ //check geolocation available
-                //try to get user current location using getCurrentPosition() method
-                    navigator.geolocation.getCurrentPosition(function(position){
-                        $("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
-                        $("#result").html("Found your location <br />Lat : "+position.coords.latitude+" </br>Lang :"+ position.coords.longitude);
-                                                                                });
-                }
-                else{
-                    console.log("Browser doesn't support geolocation!");
-                    }
-                                                });
-	 </script>
 	
 </html>

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
-import MySQLdb.cursors
+from contactEmailScript import sendEmail
+import MySQLdb.cursors, sys
+import smtplib
 import re
 
 app = Flask(__name__)
@@ -29,9 +31,31 @@ def about():
 
 
 #contact page logic
-@app.route("/contact")
+@app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    return render_template("contact.html")
+    if request.method == 'POST':
+        name = request.form['txtName']
+        email = request.form['txtEmail']
+        phone = request.form['txtPhone']
+        msg = request.form['txtMsg']
+
+        #testing, printing to console in browser
+        #https://stackoverflow.com/questions/32550487/how-to-print-from-flask-app-route-to-python-console
+        print('This is a TEST MESSAGE', file=sys.stderr)
+        print('Username: %s', name, file=sys.stderr)
+        print('Phone: %s', phone, file=sys.stderr)
+        print('Email: %s', email, file=sys.stderr)
+        print('Msg: %s', msg, file=sys.stderr)
+
+        sendEmail(name, email, phone, msg)
+        print('Email was sen!t', file=sys.stderr)
+
+        return redirect('contactCompleted.html')
+
+
+
+    else:
+        return render_template("contact.html")
 
 
 #registration page logic
@@ -64,8 +88,10 @@ def login():
             session['loggedin'] = True
             session['id'] = currentUser['id']
             session['username'] = currentUser['username']
+
             # Redirect to home page
             return 'Logged in successfully!'
+
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
