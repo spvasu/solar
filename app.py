@@ -1,23 +1,50 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, Markup, flash
 from flask_mysqldb import MySQL
 from contactEmailScript import sendEmail
-import MySQLdb.cursors, sys
+import MySQLdb.cursors
+import sys
 import smtplib
 import re
+import mysql.connector
+import json
+import datetime
+
 
 app = Flask(__name__)
 
-# Change this to your secret key (can be anything, it's for extra protection)
-app.secret_key = 'your secret key'
+app.secret_key = 'asulab'
 
+#DATABASE SECTION
 #database connection details
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'asulab'
-app.config['MYSQL_DB'] = 'solarpvdb'
+#app.config['MYSQL_HOST'] = 'localhost'
+#app.config['MYSQL_USER'] = 'root'
+#app.config['MYSQL_PASSWORD'] = 'asulab'
+#app.config['MYSQL_DB'] = 'solarpvdb'
 
 # Intialize MySQL
-mysql = MySQL(app)
+#mysql = MySQL(app)
+
+mydb = None
+
+try:
+    mydb = mysql.connector.connect(
+        host='localhost',
+        database='solarpvdb',
+        user='root',
+        password='asulab'
+    )
+
+    if mydb.is_connected():
+        print('Connected to DB...')
+
+except Error as e:
+    print(e)
+
+
+
+
+
+
 
 @app.route("/", methods=['GET'])
 def main():
@@ -59,9 +86,35 @@ def contact():
 
 
 #registration page logic
-@app.route("/registration")
+@app.route("/registration", methods=['GET', 'POST'])
 def registration():
+    if request.method == 'POST':
+        fName = request.form['txtFName']
+        LName = request.form['txtLName']
+        password1 = request.form['txtPassword1']
+        password2 = request.form['txtPassword2']
+        email = request.form['txtEmail']
+        phone = request.form['txtPhone']
+        zip = request.form['txtZip']
+
+        #checking if the two passwords match before sending to Database
+        if password1 == password2:
+            password = password1
+
+            mycursor = mydb.cursor()
+            #SQL INSERT Statement
+            sql = "INSERT INTO customer (CFname, CLname, cPassword, Cemail, CPhone, CZip) VALUES (%s, %s, %s, %s, %s, %s)"
+            user_values = (fName, LName, password, email, phone, zip)
+            mycursor.execute(sql, user_values)
+            mydb.commit()
+
+            return render_template("registrationCompleted.html")
+
+        else:
+            message = Markup("<h1>Please ensure your passwords match!</h1>")
+            flash(message)
     return render_template("registration.html")
+
 
 #login page logic
 @app.route('/login', methods=['GET', 'POST'])
